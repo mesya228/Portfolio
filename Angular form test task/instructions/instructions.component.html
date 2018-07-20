@@ -1,0 +1,88 @@
+<div class="modal">
+  <div class="modal_header">
+    <h3 class="modal-title">Додати інструкцію</h3>
+    <i class="material-icons modal-close" (click)="closeModal($event)">close</i>
+  </div>
+  <form class="input-form" id="formInstruction" name="formInstruction">
+   
+    <div class="form-group">
+      <label class="checkbox-input">
+        <i class="material-icons checkbox-checked" *ngIf="!onlyAdminsInput">check</i>
+        <input type="checkbox" id="onlyAdminsInput" [(ngModel)]="onlyAdminsInput" name="onlyAdminsInput"> 
+      </label>
+      <label for="onlyAdminsInput">Тільки адмінам</label>
+    </div>
+    
+    <div class="form-group item-select">
+      <label for="itemSelectInput">Обрати пункт <span class="red-text">*</span></label>
+      <div class="input-field" (click)="selectInputDropdown($event)" data-dropdown-target="itemsDropdown">
+        <p class="selecte__value">{{ instructionItem }}</p>
+        <i class="material-icons dropdown-arrow">arrow_drop_down</i>
+        <div class="select-input__dropdown">
+          <ul id="itemsDropdown">
+            <li *ngFor="let item of items">
+              {{item.name}}
+              <i class="material-icons dropdown-arrow">chevron_right</i>
+              <ul class="sub-dropdown">
+                <li *ngFor="let children of item.childrens" (click)="selectItem($event, children.name)">{{children.name}}</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group language-select">
+      <label for="itemSelectInput">Мова <span class="red-text">*</span></label>
+      <div class="input-field" (click)="selectInputDropdown($event)" data-dropdown-target="languageDropdown">
+        <p class="selecte__value">{{ instructionLanguage }}</p>
+        <i class="material-icons dropdown-arrow">arrow_drop_down</i>
+        <div class="select-input__dropdown">
+          <ul id="languageDropdown">
+            <li *ngFor="let language of languages" (click)="selectLanguage($event, language)">{{language}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="itemSelectInput">Назва <span class="red-text">*</span></label>
+      <input type="text" class="input-field" [(ngModel)]="instructionTitle" name="instructionTitle">
+    </div>
+     <div class="form-group">
+      <label for="itemSelectInput">Опис <span class="red-text">*</span></label>
+      <div [froalaEditor]="fieldOptions" [(froalaModel)]="instructionDescription"></div>
+    </div>
+    
+    <div class="form-group" class="image-input-group">
+      <label for="imageInput">Зображення</label><br>
+      <button class="file-input">
+        <label for="imageInput" class="file-input__image"><i class="material-icons">image</i></label>
+        <label for="imageInput" class="file-input__name" *ngIf="instructionImageName">{{instructionImageName | slice:12}}</label>
+        <label for="imageInput" class="file-input__add-icon" *ngIf="!instructionImageName"><i class="material-icons">add_circle_outline</i></label>
+        <input type="file" accept=".png,.jpeg" id="imageInput" [(ngModel)]="instructionImageName" name="instructionImageName">
+      </button>
+      <button class="file-input">
+        <label for="imageInput" class="file-input__image"><i class="material-icons">image</i></label>
+        <label for="imageInput" class="file-input__name" *ngIf="instructionImage2Name">{{instructionImage2Name | slice:12}}</label>
+        <label for="imageInput" class="file-input__add-icon" *ngIf="!instructionImage2Name"><i class="material-icons">add_circle_outline</i></label>
+        <input type="file" accept=".png,.jpeg" id="imageInput" [(ngModel)]="instructionImage2Name" name="instructionImage2Name">
+      </button>
+    </div>
+    
+    <div class="form-group">
+      <label for="itemSelectInput">Відео</label>
+      <input type="url" class="input-field" [(ngModel)]="instructionVideoUrl" name="instructionVideoUrl">
+    </div>
+     
+    <div class="alert warning" *ngIf="dataNotSaved">Містяться незбережені данні</div>
+    <div class="alert success" *ngIf="changesIsApply">Зміни збережено</div>
+    <div class="alert danger" *ngIf="responseError">Помилка з'єднання, зміни не збережено!</div>
+    
+    <div class="form-group">
+      <button class="btn float-left" type="submit" [disabled]="!submitCheck()" (click)="saveInstruction()">Зберегти</button>
+      <button class="btn float-right" (click)="clearInputs()">Очистити</button>
+    </div>
+    
+  </form>
+</div>

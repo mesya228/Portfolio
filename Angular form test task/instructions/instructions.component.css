@@ -1,0 +1,10 @@
+.item-select {
+  width: 66%;
+  margin-right: 4%;
+  z-index: 3;
+}
+.language-select {
+  width: 30%;
+  z-index: 2;
+}
+
