@@ -1,24 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { InstructionsComponent } from './instructions/instructions.component';
-
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InstructionsComponent
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
-    FroalaEditorModule.forRoot(), 
-    FroalaViewModule.forRoot()
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

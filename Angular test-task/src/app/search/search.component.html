@@ -1,0 +1,22 @@
+<div class="container">
+  <form class="row my-5" (ngSubmit)="search()" [formGroup]="searchForm">
+
+    <div class="form-group col-sm-6">
+      <input type="text" class="form-control w-100" placeholder="Введите текст для поиска" [(ngModel)]="searchQuery" name="searchQuery" formControlName="query">
+      <div class="alert alert-danger"
+        *ngIf="searchForm.controls['query'].invalid && searchForm.controls['query'].touched">
+        <h6>Wrong email</h6>
+      </div>
+    </div>
+
+    <div class="form-group col-sm-5">
+      <select id="inputState" class="form-control w-100" [(ngModel)]="searchSystem" name="system" formControlName="system">
+        <option value="" selected disabled>Укажите поисковую систему</option>
+        <option *ngFor="let searchSystem of searchSystems">{{searchSystem.title}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary col">Искать</button>
+    </div>
+  </form>
+</div>
